@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt Aero - Deep Glass Edition</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ctp: {
+                            // Mocha Palette, aber für maximales Glas angepasst
+                            crust: '#11111b',
+                            base: '#1e1e2e',
+                            // NOCH transparenter für tieferen Glass-Effekt
+                            surface0: 'rgba(30, 30, 46, 0.25)', 
+                            surface1: 'rgba(49, 50, 68, 0.4)',
+                            text: '#cdd6f4',
+                            subtext0: '#a6adc8',
+                            lavender: '#b4befe',
+                            blue: '#89b4fa',
+                            sapphire: '#74c7ec',
+                            green: '#a6e3a1',
+                            mauve: '#cba6f7',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Tieferer Aero-Hintergrund mit weicheren Verläufen */
+        body {
+            background-color: #11111b;
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(180, 190, 254, 0.2) 0px, transparent 55%), /* lavender */
+                radial-gradient(at 85% 15%, rgba(137, 180, 250, 0.2) 0px, transparent 55%), /* blue */
+                radial-gradient(at 50% 85%, rgba(116, 199, 236, 0.15) 0px, transparent 55%), /* sapphire */
+                linear-gradient(180deg, #11111b 0%, #1e1e2e 100%);
+            background-attachment: fixed;
+        }
+
+        /* DEEP GLASS: Mehr Blur, weniger Farbe, schärfere Kante */
+        .glass-panel-deep {
+            background: rgba(255, 255, 255, 0.03); /* Minimalste weiße Basis */
+            backdrop-filter: blur(25px) saturate(180%); /* MAXIMALER BLUR */
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            /* Scharfe Lichtkante oben und links */
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        /* Subtiler Oberflächen-Glanz */
+        .glass-surface-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-surface-shine::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 35%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        /* Dein Aero-Button mit extra Plastizität */
+        .aero-button-classic {
+            position: relative;
+            background: linear-gradient(180deg, #89b4fa 0%, #74c7ec 45%, #58a3e0 50%, #74c7ec 100%); /* Blue to Sapphire with highlight */
+            color: #11111b;
+            overflow: hidden;
+            transition: all 0.2s ease-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.6);
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+        /* Top Gloss */
+        .aero-button-classic::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 48%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.1) 100%);
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        /* Bottom Shine */
+        .aero-button-classic::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0; height: 10%;
+            background: rgba(255,255,255,0.2);
+            filter: blur(2px);
+            pointer-events: none;
+        }
+        
+        .aero-button-classic:hover {
+            filter: brightness(1.05) saturate(1.1);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 12px rgba(137, 180, 250, 0.5), inset 0 1px 1px rgba(255,255,255,0.7);
+        }
+        .aero-button-classic:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3), inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="text-ctp-text font-sans min-h-screen selection:bg-ctp-mauve selection:text-ctp-crust">
+
+    <!-- Header Area (Schwebt) -->
+    <header class="max-w-7xl mx-auto pt-8 pb-10 px-6 flex justify-between items-center relative z-10">
+        <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-full bg-ctp-blue aero-button-classic shadow-lg border border-white/30 active:translate-y-0"></div>
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight text-white drop-shadow-lg">
+                    Deep<span class="text-ctp-blue">Aero</span>
+                </h1>
+                <p class="text-xs text-ctp-subtext0 mt-0.5 uppercase tracking-widest">Projekt-Interface // Deadline: DI</p>
+            </div>
+        </div>
+        <nav class="flex gap-1.5 p-1.5 glass-panel-deep rounded-full text-sm">
+            <a href="#" class="px-5 py-2.5 rounded-full bg-ctp-blue text-ctp-crust font-bold aero-button-classic text-xs uppercase tracking-wider shadow-md active:translate-y-0">Dashboard</a>
+            <a href="#" class="px-5 py-2.5 rounded-full hover:bg-white/5 transition duration-200">Daten</a>
+            <a href="#" class="px-5 py-2.5 rounded-full hover:bg-white/5 transition duration-200">System</a>
+        </nav>
+    </header>
+
+    <!-- Main Layout: Sidebar & Main Panel -->
+    <main class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 pb-16">
+        
+        <!-- Sidebar (1 Spalte) - Jetzt OHNE innere Boxen -->
+        <aside class="md:col-span-1 glass-panel-deep glass-surface-shine p-7 rounded-3xl flex flex-col gap-6">
+            <h2 class="text-xs font-bold uppercase tracking-widest text-ctp-sapphire border-b border-white/10 pb-3">
+                Steuerung
+            </h2>
+            
+            <!-- Elemente schweben direkt auf dem Glas -->
+            <div>
+                <label class="block text-xs text-ctp-subtext0 mb-2.5">Aktiver Modus</label>
+                <select class="w-full bg-black/20 border border-white/10 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-ctp-blue focus:ring-1 focus:ring-ctp-blue transition appearance-none">
+                    <option>🌐 Echtzeit-Analyse</option>
+                    <option>📊 Archiv-Daten</option>
+                    <option>⚙️ Konfiguration</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs text-ctp-subtext0 mb-2.5">Zeitraum</label>
+                <div class="flex gap-2">
+                    <button class="flex-1 py-2 px-3 text-xs bg-white/5 rounded-lg border border-white/10 hover:bg-white/10">24h</button>
+                    <button class="flex-1 py-2 px-3 text-xs bg-ctp-blue/10 rounded-lg border border-ctp-blue/30 text-ctp-blue font-semibold">7d</button>
+                    <button class="flex-1 py-2 px-3 text-xs bg-white/5 rounded-lg border border-white/10 hover:bg-white/10">30d</button>
+                </div>
+            </div>
+            
+            <button class="w-full mt-2 aero-button-classic font-bold py-3.5 px-4 rounded-xl text-sm uppercase tracking-wider">
+                Aktion Ausführen
+            </button>
+        </aside>
+
+        <!-- Main Dashboard (3 Spalten) - Integrierte Struktur -->
+        <section class="md:col-span-3 glass-panel-deep glass-surface-shine p-8 rounded-3xl">
+            
+            <!-- Welcome Area -->
+            <div class="mb-10 pb-8 border-b border-white/10">
+                <h2 class="text-4xl font-extrabold text-white leading-tight drop-shadow-md">
+                    System-<span class="text-ctp-mauve">Übersicht</span>
+                </h2>
+                <p class="text-lg text-ctp-subtext0 mt-3 max-w-2xl leading-relaxed">
+                    Dies ist dein neues, bereinigtes Glas-Interface. Der Blur ist stärker, die Transparenz höher und die Struktur kommt ohne verschachtelte Kästen aus.
+                </p>
+            </div>
+
+            <!-- Haupt-Inhalt: Integrierte Liste statt Cards -->
+            <div class="space-y-1">
+                <h3 class="text-xs font-bold uppercase tracking-widest text-ctp-green mb-5">System-Status:</h3>
+                
+                <!-- Listen-Element 1 -->
+                <div class="flex items-center gap-5 p-5 hover:bg-white/5 rounded-2xl transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-ctp-green/10 border border-ctp-green/20 flex items-center justify-center shadow-inner group-hover:scale-105 transition">
+                        <span class="text-3xl">✨</span>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-lg font-bold text-white group-hover:text-ctp-green transition">Deep Glass Effekt</h4>
+                        <p class="text-sm text-ctp-subtext0 mt-0.5">Maximaler Unschärfe-Effekt (25px Blur) für tiefe Oberflächen.</p>
+                    </div>
+                    <span class="text-xs text-ctp-green font-mono py-1 px-3 bg-ctp-green/10 rounded-full border border-ctp-green/20">AKTIV</span>
+                </div>
+
+                <!-- Trennlinie -->
+                <div class="border-t border-white/5 my-1"></div>
+
+                <!-- Listen-Element 2 -->
+                <div class="flex items-center gap-5 p-5 hover:bg-white/5 rounded-2xl transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-ctp-lavender/10 border border-ctp-lavender/20 flex items-center justify-center shadow-inner group-hover:scale-105 transition">
+                        <span class="text-3xl">💧</span>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-lg font-bold text-white group-hover:text-ctp-lavender transition">Bereinigte Struktur</h4>
+                        <p class="text-sm text-ctp-subtext0 mt-0.5">Keine verschachtelten abgerundeten Kästen mehr. Alles schwebt auf einer Ebene.</p>
+                    </div>
+                    <span class="text-xs text-ctp-subtext0 font-mono py-1 px-3 bg-white/5 rounded-full border border-white/10">STANDBY</span>
+                </div>
+
+                 <!-- Trennlinie -->
+                <div class="border-t border-white/5 my-1"></div>
+
+                <!-- Listen-Element 3 -->
+                <div class="flex items-center gap-5 p-5 hover:bg-white/5 rounded-2xl transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-ctp-blue/10 border border-ctp-blue/20 flex items-center justify-center shadow-inner group-hover:scale-105 transition">
+                        <span class="text-3xl">🚀</span>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-lg font-bold text-white group-hover:text-ctp-blue transition">Aero Button Vibe</h4>
+                        <p class="text-sm text-ctp-subtext0 mt-0.5">Der klassische, plastische Button-Stil wurde beibehalten und optimiert.</p>
+                    </div>
+                    <span class="text-xs text-ctp-blue font-mono py-1 px-3 bg-ctp-blue/10 rounded-full border border-ctp-blue/20">BEREIT</span>
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="max-w-7xl mx-auto mt-6 text-center text-xs text-ctp-surface1 p-8 border-t border-white/5">
+        <p>Deep Aero Glass Interface // Catppuccin Mocha Base</p>
+        <p class="mt-1">"Vibe Coding unter Hochdruck."</p>
+    </footer>
+
+</body>
+</html>
