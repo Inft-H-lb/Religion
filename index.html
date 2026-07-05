@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt Galerie - Glass Magazin Stil</title>
+    <title>Projekt Aero - Deep Glass Edition</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -13,10 +17,14 @@
                         ctp: {
                             crust: '#11111b',
                             base: '#1e1e2e',
+                            surface0: 'rgba(30, 30, 46, 0.25)', 
+                            surface1: 'rgba(49, 50, 68, 0.4)',
                             text: '#cdd6f4',
                             subtext0: '#a6adc8',
+                            lavender: '#b4befe',
                             blue: '#89b4fa',
                             sapphire: '#74c7ec',
+                            green: '#a6e3a1',
                             mauve: '#cba6f7',
                         }
                     },
@@ -28,147 +36,244 @@
         }
     </script>
     <style>
-        /* Der leuchtende Aero-Hintergrund im Hintergrund */
+        /* Nur der Hintergrund hat einen Verlauf */
         body {
             background-color: #11111b;
             background-image: 
-                radial-gradient(at 20% 20%, rgba(180, 190, 254, 0.15) 0px, transparent 60%),
-                radial-gradient(at 80% 40%, rgba(137, 180, 250, 0.15) 0px, transparent 60%),
-                linear-gradient(180deg, #11111b 0%, #1e1e2e 100%);
+                radial-gradient(at 15% 15%, rgba(180, 190, 254, 0.08) 0px, transparent 50%),
+                radial-gradient(at 85% 15%, rgba(137, 180, 250, 0.08) 0px, transparent 50%),
+                radial-gradient(at 50% 85%, rgba(116, 199, 236, 0.05) 0px, transparent 50%),
+                linear-gradient(180deg, #11111b 0%, #161622 100%);
             background-attachment: fixed;
         }
 
-        /* Deep Glass Effekt für die großen Flächen */
-        .glass-blur {
+        /* UNIFORM DEEP GLASS: Absolut flach, transparent, kein eigener Farbverlauf */
+        .glass-panel-deep {
             background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px) saturate(160%);
+            -webkit-backdrop-filter: blur(25px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-top: 1px solid rgba(255, 255, 255, 0.16);
+            border-left: 1px solid rgba(255, 255, 255, 0.10);
+            box-shadow: 0 15px 35px 0 rgba(0, 0, 0, 0.3);
         }
 
-        /* Dein geliebter Aero-Button mit starker Plastizität */
-        .aero-button {
+        /* MILDE LIQUID-GLASS BUTTONS (Bleibt beim Hover starr) */
+        .aero-button-classic {
             position: relative;
-            background: linear-gradient(180deg, #89b4fa 0%, #74c7ec 45%, #58a3e0 50%, #74c7ec 100%);
-            color: #11111b;
+            background: linear-gradient(180deg, rgba(137, 180, 250, 0.20) 0%, rgba(116, 199, 236, 0.15) 45%, rgba(88, 163, 224, 0.12) 50%, rgba(116, 199, 236, 0.15) 100%);
+            color: #89b4fa;
             overflow: hidden;
-            transition: all 0.2s ease-out;
-            box-shadow: 0 4px 10px rgba(137, 180, 250, 0.3), inset 0 1px 1px rgba(255,255,255,0.6);
-            border: 1px solid rgba(0,0,0,0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255,255,255,0.15);
+            border: 1px solid rgba(137, 180, 250, 0.25);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
         }
-        .aero-button::before {
+        
+        .aero-button-classic::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; height: 48%;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.05) 100%);
+            top: 0; left: 0; right: 0; height: 45%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.01) 100%);
             pointer-events: none;
             border-radius: inherit;
         }
-        .aero-button:hover {
-            filter: brightness(1.05) saturate(1.1);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 15px rgba(137, 180, 250, 0.4), inset 0 1px 1px rgba(255,255,255,0.7);
+        
+        .aero-button-classic:hover {
+            background: linear-gradient(180deg, rgba(137, 180, 250, 0.28) 0%, rgba(116, 199, 236, 0.22) 45%, rgba(88, 163, 224, 0.18) 50%, rgba(116, 199, 236, 0.22) 100%);
+            border-color: rgba(137, 180, 250, 0.4);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255,255,255,0.25);
+            /* transform: translateY(-1px); -> ENTFERNT, um das Aufwärtsgleiten zu verhindern */
+        }
+        
+        .aero-button-classic:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* Custom Scrollbar für den horizontalen Magazin-Fluss */
-        .hide-scrollbar::-webkit-scrollbar {
-            height: 6px;
+        /* Nav-Pillen Styles */
+        .nav-pill {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-weight: 600;
+            color: #a6adc8;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
         }
-        .hide-scrollbar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
+        .nav-pill:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
         }
-        .hide-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+
+        .nav-pill-active-blue {
+            background-color: rgba(137, 180, 250, 0.1);
+            border: 1px solid rgba(137, 180, 250, 0.2);
+            color: #89b4fa;
         }
-        .hide-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: rgba(137, 180, 250, 0.3);
+        .nav-pill-active-blue:hover {
+            background-color: rgba(137, 180, 250, 0.15);
+        }
+
+        .nav-pill-active-lavender {
+            background-color: rgba(180, 190, 254, 0.1);
+            border: 1px solid rgba(180, 190, 254, 0.2);
+            color: #b4befe;
+        }
+        .nav-pill-active-lavender:hover {
+            background-color: rgba(180, 190, 254, 0.15);
+        }
+
+        .nav-pill-active-green {
+            background-color: rgba(166, 227, 161, 0.1);
+            border: 1px solid rgba(166, 227, 161, 0.2);
+            color: #a6e3a1;
+        }
+        .nav-pill-active-green:hover {
+            background-color: rgba(166, 227, 161, 0.15);
         }
     </style>
 </head>
-<body class="text-ctp-text font-sans min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-ctp-mauve selection:text-ctp-crust">
+<body class="text-ctp-text font-sans min-h-screen selection:bg-ctp-mauve selection:text-ctp-crust">
 
-    <header class="w-full px-8 pt-8 pb-4 flex justify-between items-end border-b border-white/10 relative z-10">
-        <div>
-            <p class="text-xs tracking-[0.3em] uppercase text-ctp-subtext0 mb-1">// PROJECT PORTFOLIO</p>
-            <h1 class="text-4xl font-light tracking-tight text-white">
-                Visual<span class="font-bold text-ctp-blue">Aero</span>
-            </h1>
+    <header class="max-w-7xl mx-auto pt-8 pb-10 px-6 flex justify-between items-center relative z-10">
+        <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl glass-panel-deep flex items-center justify-center text-base cursor-default border border-white/10 text-ctp-blue">
+                <i class="fa-solid fa-cube"></i>
+            </div>
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight text-white drop-shadow-lg">
+                    Leben<span class="text-ctp-blue"> nach dem Tod</span>
+                </h1>
+                <p class="text-xs text-ctp-subtext0 mt-0.5 tracking-widest">Religiöse Jenseitsvorstellungen</p>
+            </div>
         </div>
         
-        <div class="flex items-center gap-8 text-xs tracking-widest uppercase">
-            <span class="text-white/40">DEADLINE: DIENSTAG</span>
-            <button class="aero-button font-bold py-2 px-6 rounded-full text-[10px] tracking-widest uppercase">
-                PROJEKT STARTEN
-            </button>
-        </div>
+        <nav class="flex gap-1.5 p-1.5 glass-panel-deep rounded-full text-sm items-center">
+            <button id="tab-dashboard" onclick="switchTab('dashboard')" class="px-5 py-2.5 rounded-full text-xs uppercase tracking-wider nav-pill nav-pill-active-blue">Dashboard</button>
+            <button id="tab-daten" onclick="switchTab('daten')" class="px-5 py-2.5 rounded-full text-xs uppercase tracking-wider nav-pill">Daten</button>
+            <button id="tab-system" onclick="switchTab('system')" class="px-5 py-2.5 rounded-full text-xs uppercase tracking-wider nav-pill">System</button>
+        </nav>
     </header>
 
-    <main class="w-full flex-1 flex flex-col justify-center py-12 px-8">
-        <div class="flex gap-12 overflow-x-auto pb-6 hide-scrollbar snap-x snap-mandatory">
+    <main class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 pb-16">
+        
+        <aside class="md:col-span-1 glass-panel-deep p-7 rounded-3xl flex flex-col gap-6">
+            <h2 class="text-xs font-bold uppercase tracking-widest text-ctp-sapphire border-b border-white/10 pb-3 flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-xs"></i> Steuerung
+            </h2>
             
-            <div class="w-[85vw] md:w-[45vw] flex-shrink-0 snap-start flex flex-col gap-4 group">
-                <div class="text-xs font-mono text-ctp-blue tracking-widest">01 / CONCEPT</div>
-                
-                <div class="relative aspect-[16/10] w-full overflow-hidden rounded-sm border border-white/10 shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" 
-                         alt="Abstract Art" 
-                         class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out">
-                    
-                    <div class="absolute bottom-0 left-0 right-0 glass-blur p-6 flex justify-between items-center border-t border-white/20">
-                        <div>
-                            <h2 class="text-xl font-bold text-white tracking-wide">Glassmorphismus Kern</h2>
-                            <p class="text-xs text-ctp-subtext0 mt-0.5">Keine verschachtelten Boxen. Pures Glas.</p>
-                        </div>
-                        <span class="text-xs text-ctp-mauve font-bold group-hover:translate-x-2 transition-transform duration-300">→</span>
-                    </div>
+            <div>
+                <label class="block text-xs text-ctp-subtext0 mb-2.5">Aktiver Modus</label>
+                <div class="relative">
+                    <select class="w-full bg-black/30 border border-white/10 rounded-xl p-3.5 pr-10 text-sm text-white focus:outline-none focus:border-ctp-blue focus:ring-1 focus:ring-ctp-blue transition appearance-none">
+                        <option>Echtzeit-Analyse</option>
+                        <option>Archiv-Daten</option>
+                        <option>Konfiguration</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-xs text-ctp-subtext0 pointer-events-none"></i>
                 </div>
             </div>
 
-            <div class="w-[85vw] md:w-[45vw] flex-shrink-0 snap-start flex flex-col gap-4 group">
-                <div class="text-xs font-mono text-ctp-blue tracking-widest">02 / INTERFACE</div>
-                
-                <div class="relative aspect-[16/10] w-full overflow-hidden rounded-sm border border-white/10 shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1200&q=80" 
-                         alt="Abstract Glass" 
-                         class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out">
-                    
-                    <div class="absolute bottom-0 left-0 right-0 glass-blur p-6 flex justify-between items-center border-t border-white/20">
-                        <div>
-                            <h2 class="text-xl font-bold text-white tracking-wide">Clean & Horizontal</h2>
-                            <p class="text-xs text-ctp-subtext0 mt-0.5">Inspiriert von der minimalistischen Magazin-Ästhetik.</p>
-                        </div>
-                        <span class="text-xs text-ctp-mauve font-bold group-hover:translate-x-2 transition-transform duration-300">→</span>
-                    </div>
+            <div>
+                <label class="block text-xs text-ctp-subtext0 mb-2.5">Zeitraum</label>
+                <div class="flex gap-2">
+                    <button class="flex-1 py-2 px-3 text-xs bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition">24h</button>
+                    <button class="flex-1 py-2 px-3 text-xs bg-ctp-blue/10 rounded-lg border border-ctp-blue/30 text-ctp-blue font-semibold">7d</button>
+                    <button class="flex-1 py-2 px-3 text-xs bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition">30d</button>
                 </div>
             </div>
+            
+            <button class="w-full mt-2 aero-button-classic font-bold py-3.5 px-4 rounded-xl text-sm uppercase tracking-wider flex items-center justify-center gap-2">
+                <i class="fa-solid fa-bolt"></i> Aktion Ausführen
+            </button>
+        </aside>
 
-            <div class="w-[85vw] md:w-[45vw] flex-shrink-0 snap-start flex flex-col gap-4 group">
-                <div class="text-xs font-mono text-ctp-blue tracking-widest">03 / DATA</div>
-                
-                <div class="relative aspect-[16/10] w-full overflow-hidden rounded-sm border border-white/10 shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=1200&q=80" 
-                         alt="Tech Design" 
-                         class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out">
-                    
-                    <div class="absolute bottom-0 left-0 right-0 glass-blur p-6 flex justify-between items-center border-t border-white/20">
-                        <div>
-                            <h2 class="text-xl font-bold text-white tracking-wide">Bereit für Dienstag</h2>
-                            <p class="text-xs text-ctp-subtext0 mt-0.5">Schnell befüllbar mit deinen echten Inhalten.</p>
-                        </div>
-                        <span class="text-xs text-ctp-mauve font-bold group-hover:translate-x-2 transition-transform duration-300">→</span>
-                    </div>
-                </div>
+        <section class="md:col-span-3 glass-panel-deep p-8 rounded-3xl">
+            
+            <div class="mb-10 pb-8 border-b border-white/10">
+                <h2 class="text-4xl font-extrabold text-white leading-tight drop-shadow-md">
+                    System-<span class="text-ctp-mauve">Übersicht</span>
+                </h2>
+                <p class="text-lg text-ctp-subtext0 mt-3 max-w-2xl leading-relaxed">
+                    Dies ist dein neues, bereinigtes Glas-Interface. Der Blur ist stärker, die Transparenz höher und die Struktur kommt ohne verschachtelte Kästen aus.
+                </p>
             </div>
 
-        </div>
+            <div class="space-y-1">
+                <h3 class="text-xs font-bold uppercase tracking-widest text-ctp-green mb-5 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-nodes"></i> System-Status:
+                </h3>
+                
+                <div class="flex items-center gap-5 p-5 hover:bg-white/5 rounded-2xl transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-ctp-green/10 border border-ctp-green/20 flex items-center justify-center shadow-inner group-hover:scale-105 transition text-xl text-ctp-green">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-lg font-bold text-white group-hover:text-ctp-green transition">Deep Glass Effekt</h4>
+                        <p class="text-sm text-ctp-subtext0 mt-0.5">Maximaler Unschärfe-Effekt (25px Blur) für tiefe Oberflächen.</p>
+                    </div>
+                    <span class="text-xs text-ctp-green font-mono py-1 px-3 bg-ctp-green/10 rounded-full border border-ctp-green/20 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle text-[6px]"></i> AKTIV
+                    </span>
+                </div>
+
+                <div class="border-t border-white/5 my-1"></div>
+
+                <div class="flex items-center gap-5 p-5 hover:bg-white/5 rounded-2xl transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-ctp-lavender/10 border border-ctp-lavender/20 flex items-center justify-center shadow-inner group-hover:scale-105 transition text-xl text-ctp-lavender">
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-lg font-bold text-white group-hover:text-ctp-lavender transition">Bereinigte Struktur</h4>
+                        <p class="text-sm text-ctp-subtext0 mt-0.5">Keine verschachtelten abgerundeten Kästen mehr. Alles schwebt auf einer Ebene.</p>
+                    </div>
+                    <span class="text-xs text-ctp-subtext0 font-mono py-1 px-3 bg-white/5 rounded-full border border-white/10 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle text-[6px] opacity-40"></i> STANDBY
+                    </span>
+                </div>
+
+                <div class="border-t border-white/5 my-1"></div>
+
+                <div class="flex items-center gap-5 p-5 hover:bg-white/5 rounded-2xl transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-ctp-blue/10 border border-ctp-blue/20 flex items-center justify-center shadow-inner group-hover:scale-105 transition text-xl text-ctp-blue">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-lg font-bold text-white group-hover:text-ctp-blue transition">Aero Button Vibe</h4>
+                        <p class="text-sm text-ctp-subtext0 mt-0.5">Der klassische, plastische Button-Stil wurde beibehalten und optimiert.</p>
+                    </div>
+                    <span class="text-xs text-ctp-blue font-mono py-1 px-3 bg-ctp-blue/10 rounded-full border border-ctp-blue/20 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle text-[6px]"></i> BEREIT
+                    </span>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="w-full px-8 py-6 flex justify-between items-center border-t border-white/10 text-[10px] tracking-widest uppercase text-white/40 relative z-10">
-        <p>© 2026 AERO GALLERY. ALL RIGHTS RESERVED.</p>
-        <p>SCROLL HORIZONTAL TO EXPLORE →</p>
+    <footer class="max-w-7xl mx-auto mt-6 text-center text-xs text-ctp-surface1 p-8 border-t border-white/5">
+        <p>Deep Aero Glass Interface // Catppuccin Mocha Base</p>
+        <p class="mt-1">"Vibe Coding unter Hochdruck."</p>
     </footer>
 
+    <script>
+        function switchTab(activeTab) {
+            const dashboard = document.getElementById('tab-dashboard');
+            const daten = document.getElementById('tab-daten');
+            const system = document.getElementById('tab-system');
+
+            [dashboard, daten, system].forEach(pill => {
+                pill.classList.remove('nav-pill-active-blue', 'nav-pill-active-lavender', 'nav-pill-active-green');
+            });
+
+            if (activeTab === 'dashboard') {
+                dashboard.classList.add('nav-pill-active-blue');
+            } else if (activeTab === 'daten') {
+                daten.classList.add('nav-pill-active-lavender');
+            } else if (activeTab === 'system') {
+                system.classList.add('nav-pill-active-green');
+            }
+        }
+    </script>
 </body>
 </html>
