@@ -3,277 +3,506 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt Aero - Deep Glass Edition</title>
+    <title>Jenseitsvorstellungen</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
+        <meta property="og:image"     content="https://raw.githubusercontent.com/inft-h-lb/Religion/main/assets/image.png">
+        <meta name     ="twitter:card" content="summary_large_image"> <!-- Creates big boy embed image -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        ctp: {
-                            crust: '#11111b',
-                            base: '#1e1e2e',
-                            surface0: 'rgba(30, 30, 46, 0.25)', 
-                            surface1: 'rgba(49, 50, 68, 0.4)',
-                            text: '#cdd6f4',
-                            subtext0: '#a6adc8',
-                            lavender: '#b4befe',
-                            blue: '#89b4fa',
-                            sapphire: '#74c7ec',
-                            green: '#a6e3a1',
-                            mauve: '#cba6f7',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Nur der Hintergrund hat einen Verlauf */
-        body {
-            background-color: #11111b;
-            background-image: 
-                radial-gradient(at 15% 15%, rgba(180, 190, 254, 0.08) 0px, transparent 50%),
-                radial-gradient(at 85% 15%, rgba(137, 180, 250, 0.08) 0px, transparent 50%),
-                radial-gradient(at 50% 85%, rgba(116, 199, 236, 0.05) 0px, transparent 50%),
-                linear-gradient(180deg, #11111b 0%, #161622 100%);
-            background-attachment: fixed;
-        }
-
-        /* UNIFORM DEEP GLASS: Absolut flach, transparent, kein eigener Farbverlauf */
-        .glass-panel-deep {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(25px) saturate(160%);
-            -webkit-backdrop-filter: blur(25px) saturate(160%);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-top: 1px solid rgba(255, 255, 255, 0.16);
-            border-left: 1px solid rgba(255, 255, 255, 0.10);
-            box-shadow: 0 15px 35px 0 rgba(0, 0, 0, 0.3);
-        }
-
-        /* MILDE LIQUID-GLASS BUTTONS (Bleibt beim Hover starr) */
-        .aero-button-classic {
-            position: relative;
-            background: linear-gradient(180deg, rgba(137, 180, 250, 0.20) 0%, rgba(116, 199, 236, 0.15) 45%, rgba(88, 163, 224, 0.12) 50%, rgba(116, 199, 236, 0.15) 100%);
-            color: #89b4fa;
-            overflow: hidden;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255,255,255,0.15);
-            border: 1px solid rgba(137, 180, 250, 0.25);
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .aero-button-classic::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 45%;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.01) 100%);
-            pointer-events: none;
-            border-radius: inherit;
-        }
-        
-        .aero-button-classic:hover {
-            background: linear-gradient(180deg, rgba(137, 180, 250, 0.28) 0%, rgba(116, 199, 236, 0.22) 45%, rgba(88, 163, 224, 0.18) 50%, rgba(116, 199, 236, 0.22) 100%);
-            border-color: rgba(137, 180, 250, 0.4);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255,255,255,0.25);
-            /* transform: translateY(-1px); -> ENTFERNT, um das Aufwärtsgleiten zu verhindern */
-        }
-        
-        .aero-button-classic:active {
-            transform: translateY(1px);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Nav-Pillen Styles */
-        .nav-pill {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            font-weight: 600;
-            color: #a6adc8;
-            border: 1px solid transparent;
-            transition: all 0.2s ease;
-        }
-        .nav-pill:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: #ffffff;
-        }
-
-        .nav-pill-active-blue {
-            background-color: rgba(137, 180, 250, 0.1);
-            border: 1px solid rgba(137, 180, 250, 0.2);
-            color: #89b4fa;
-        }
-        .nav-pill-active-blue:hover {
-            background-color: rgba(137, 180, 250, 0.15);
-        }
-
-        .nav-pill-active-lavender {
-            background-color: rgba(180, 190, 254, 0.1);
-            border: 1px solid rgba(180, 190, 254, 0.2);
-            color: #b4befe;
-        }
-        .nav-pill-active-lavender:hover {
-            background-color: rgba(180, 190, 254, 0.15);
-        }
-
-        .nav-pill-active-green {
-            background-color: rgba(166, 227, 161, 0.1);
-            border: 1px solid rgba(166, 227, 161, 0.2);
-            color: #a6e3a1;
-        }
-        .nav-pill-active-green:hover {
-            background-color: rgba(166, 227, 161, 0.15);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="script.js" defer></script>
 </head>
-<body class="text-ctp-text font-sans min-h-screen selection:bg-ctp-mauve selection:text-ctp-crust">
+<body class="selection:bg-ctp-mauve selection:text-ctp-crust">
 
-    <header class="max-w-7xl mx-auto pt-8 pb-10 px-6 flex justify-between items-center relative z-10">
-        <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl glass-panel-deep flex items-center justify-center text-base cursor-default border border-white/10 text-ctp-blue">
-                <i class="fa-solid fa-cube"></i>
+    <header class="max-w-7xl mx-auto pt-8 pb-10 px-6 flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl glass-panel-deep flex items-center justify-center text-ctp-blue shadow-lg">
+                <i class="fa-solid fa-cloud-sun text-xl"></i>
             </div>
             <div>
-                <h1 class="text-3xl font-extrabold tracking-tight text-white drop-shadow-lg">
-                    Leben<span class="text-ctp-blue"> nach dem Tod</span>
+                <h1 class="text-3xl font-black tracking-tight text-white">
+                    Leben<span class="text-blue-400"> nach dem Tod</span>
                 </h1>
-                <p class="text-xs text-ctp-subtext0 mt-0.5 tracking-widest">Religiöse Jenseitsvorstellungen</p>
+                <p class="text-[10px] text-slate-400 uppercase tracking-[0.3em] font-bold">Religion -- Angelo; Lenny</p>
             </div>
         </div>
         
-        <nav class="flex gap-1.5 p-1.5 glass-panel-deep rounded-full text-sm items-center">
-            <button id="tab-dashboard" onclick="switchTab('dashboard')" class="px-5 py-2.5 rounded-full text-xs uppercase tracking-wider nav-pill nav-pill-active-blue">Dashboard</button>
-            <button id="tab-daten" onclick="switchTab('daten')" class="px-5 py-2.5 rounded-full text-xs uppercase tracking-wider nav-pill">Daten</button>
-            <button id="tab-system" onclick="switchTab('system')" class="px-5 py-2.5 rounded-full text-xs uppercase tracking-wider nav-pill">System</button>
+        <nav class="flex flex-wrap justify-center gap-1.5 p-1.5 glass-panel-deep rounded-full text-xs">
+            <button onclick="showPage('dashboard')" id="btn-dashboard" class="nav-pill active-pill px-5 py-2.5 rounded-full">DASHBOARD</button>
+            <button onclick="showPage('nt')" id="btn-nt" class="nav-pill px-5 py-2.5 rounded-full">NEUES TESTAMENT</button>
+            <button onclick="showPage('vergleich')" id="btn-vergleich" class="nav-pill px-5 py-2.5 rounded-full">VORSTELLUNGEN IM VERGLEICH</button>
+            <button onclick="showPage('musik')" id="btn-musik" class="nav-pill px-5 py-2.5 rounded-full">IN DER MUSIK</button>
+            <button onclick="showPage('quellen')" id="btn-quellen" class="nav-pill px-5 py-2.5 rounded-full">QUELLEN</button>
         </nav>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 pb-16">
+    <main class="max-w-7xl mx-auto px-6 pb-20">
         
-        <aside class="md:col-span-1 glass-panel-deep p-7 rounded-3xl flex flex-col gap-6">
-            <h2 class="text-xs font-bold uppercase tracking-widest text-ctp-sapphire border-b border-white/10 pb-3 flex items-center gap-2">
-                <i class="fa-solid fa-sliders text-xs"></i> Steuerung
-            </h2>
-            
-            <div>
-                <label class="block text-xs text-ctp-subtext0 mb-2.5">Aktiver Modus</label>
-                <div class="relative">
-                    <select class="w-full bg-black/30 border border-white/10 rounded-xl p-3.5 pr-10 text-sm text-white focus:outline-none focus:border-ctp-blue focus:ring-1 focus:ring-ctp-blue transition appearance-none">
-                        <option>Echtzeit-Analyse</option>
-                        <option>Archiv-Daten</option>
-                        <option>Konfiguration</option>
-                    </select>
-                    <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-xs text-ctp-subtext0 pointer-events-none"></i>
+        <div id="page-dashboard" class="page-content active">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                <section class="md:col-span-2 glass-panel-deep p-10 rounded-[2.5rem] flex flex-col justify-between">
+                    <div>
+                        <h2 id="youdied" class="text-4xl font-black text-white mb-6">You died</h2>
+                        <p class="text-lg text-slate-300 leading-relaxed mb-8">
+                            Ob der Tod das absolute Ende darstellt und endgültig ist, oder ob danach doch noch etwas kommt ist eine Frage, 
+                            die die Menschen schon immer begleitet hat. Häufig ist sie eines der zentralsten Themen in Religionen auf der 
+                            ganzen Welt, welche dementsprechend auch versuchen sie zu beantworten.
+                        </p>
+                    </div>
+                    <div class="flex gap-4">
+                        <button onclick="showPage('nt')" class="aero-btn px-6 py-3 rounded-xl font-bold text-white text-sm uppercase tracking-widest flex items-center gap-2">
+                            <i class="fa-solid fa-book-open"></i> Einstieg: N. Testament
+                        </button>
+                    </div>
+                </section>
+                
+                <div class="rounded-[2.5rem] overflow-hidden shadow-2xl h-[400px] md:h-auto border border-white/5 relative">
+                    <img src="https://s.w-x.co/de-GettyImages-Wolken.jpg" class="w-full h-full object-cover opacity-80" alt="Wolken Himmel">
+                </div>
+            </div>
+        </div>
+
+        <div id="page-nt" class="page-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                
+                <!-- Linker Container: Dünnere Steuerungseinheit -->
+                <div class="glass-panel-deep p-8 rounded-[2.5rem] flex flex-col justify-center md:col-span-1">
+                    
+                    <!-- Hinzugefügte Überschrift -->
+                    <div class="mb-6 border-b border-white/10 pb-4">
+                        <h2 class="text-2xl font-black text-white tracking-tight drop-shadow-md">
+                            Neues Testament
+                        </h2>
+                    </div>
+
+                    <!-- Steuerungsebene (Button + Dropdown) -->
+                    <div class="flex flex-col gap-8">
+                        
+                        <div>
+                            <label class="text-[10px] uppercase tracking-widest text-slate-400 font-bold ml-1 mb-2 block">Themenbereich wechseln:</label>
+                            <!-- Button zum Wechseln der Versionen -->
+                            <button id="nt-toggle-btn" class="aero-btn w-full px-4 py-4 rounded-xl font-bold text-white text-sm uppercase tracking-wider transition-all hover:scale-[1.02] active:scale-95 shadow-lg" onclick="toggleNtVersion()">
+                                Provokante Forderungen
+                            </button>
+                        </div>
+                        
+                        <!-- Dropdown für die Bibelstellen -->
+                        <div class="flex flex-col gap-2">
+                            <label class="text-[10px] uppercase tracking-widest text-slate-400 font-bold ml-1">Bibelstelle wählen:</label>
+                            <select id="nt-dropdown" class="w-full bg-[#1e1e2e]/90 text-white text-sm rounded-xl p-3.5 border border-white/10 outline-none focus:border-blue-400 transition-colors cursor-pointer shadow-lg" onchange="updateNtContent()">
+                                <!-- Wird via JavaScript generiert -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rechter Container: Breitere Inhaltseinheit -->
+                <div class="glass-panel-deep p-10 rounded-[2.5rem] md:col-span-2 flex flex-col">
+                    
+                    <!-- Header-Text (Ändert sich mit dem Button) -->
+                    <div id="nt-header-text" class="text-base text-slate-300 leading-relaxed mb-6">
+                        <!-- Wird via JavaScript generiert -->
+                    </div>
+                    
+                    <!-- Trennstrich nach unten -->
+                    <hr class="border-white/10 mb-8 w-full">
+                    
+                    <!-- Dynamischer Inhaltsbereich für die Bibelstellen (Bild links, Text rechts) -->
+                    <div id="nt-content-container" class="flex flex-col sm:flex-row gap-8 items-center sm:items-start transition-opacity duration-300 opacity-100">
+                        
+                        <!-- Quadratisches Bild mit abgerundeten Ecken (Links) -->
+                        <div class="flex-shrink-0 w-40 h-40 sm:w-48 sm:h-48 rounded-[1.5rem] overflow-hidden shadow-2xl border border-white/5 relative">
+                            <img id="nt-image" src="" alt="Themenbild Bibelstelle" class="w-full h-full object-cover">
+                            <!-- Feiner Verdunklungs-Verlauf für den Look -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                        </div>
+                        
+                        <!-- Erklärender Text zur gewählten Bibelstelle (Rechts) -->
+                        <div class="flex-grow pt-2">
+                            <h3 id="nt-passage-title" class="text-2xl font-black text-white mb-4 tracking-tight shadow-black drop-shadow-md">
+                                <!-- Titel via JS -->
+                            </h3>
+                            <p id="nt-passage-text" class="text-base text-slate-300 leading-relaxed">
+                                <!-- Text via JS -->
+                            </p>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
 
-            <div>
-                <label class="block text-xs text-ctp-subtext0 mb-2.5">Zeitraum</label>
-                <div class="flex gap-2">
-                    <button class="flex-1 py-2 px-3 text-xs bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition">24h</button>
-                    <button class="flex-1 py-2 px-3 text-xs bg-ctp-blue/10 rounded-lg border border-ctp-blue/30 text-ctp-blue font-semibold">7d</button>
-                    <button class="flex-1 py-2 px-3 text-xs bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition">30d</button>
+            <!-- Interne Logik für diesen Tab -->
+            <script>
+                const ntData = {
+                    forderungen: {
+                        buttonText: "Provokante Forderungen",
+                        shortText: "<strong class='text-blue-300 block mb-2 text-2xl font-black tracking-tight'>Radikale Formulierung</strong>Jesus stellte Forderungen, die gängige gesellschaftliche Normen aufbrachen und radikale Nächstenliebe in den Fokus rückten. Zu Zeiten Jesu glaubten die Menschen daran, dass die Endzeit des Reichs Gottes sowie der Übergang zu einer neuen, besseren Welt, eingeläutet durch den Messias, jeder Zeit eintreten könnte. Darum galt es als provokativ, diese Forderungen zu stellen, und die gängige religiöse Praxis zu hinterfragen. Vor Allem auch, weil sich der Glaube an den Messias durch das NT verändert hat, wird das, was Jeusu predigte, nicht mehr als provokativ wargenommen.",
+                        options: [
+                            {
+                                title: "Ehebrecherin (Joh 8,1-11)",
+                                text: "\"Wer von euch ohne Sünde ist, werfe als Erster einen Stein auf sie.\" – Jesus schützt eine Frau vor der drohenden Steinigung, indem er die Heuchelei der Kläger aufdeckt. Er verurteilt die Frau nicht, sondern durchbricht gnadenlos die strikte Rechtsordnung durch absolute Barmherzigkeit und Vergebung.",
+                                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTVM1WEgtK66Rx6lXZgJARa5HYp2JHIxsPcIa5GmmcQLr9wh7snv0xEwz5&s=10"
+                            },
+                            {
+                                title: "Die Antithesen (Mt 5,17-48)",
+                                text: "\"Jeder, der seinem Bruder auch nur zürnt, soll dem Gericht verfallen\" – In der Bergpredigt verschärft Jesus die Tora-Gebote radikal. Es reicht ihm nicht, nur nicht zu morden; schon der Zorn auf den Mitmenschen ist verwerflich. Gekrönt werden diese provokanten Forderungen durch den ultimativen Aufruf zur Feindesliebe.",
+                                image: "https://upload.wikimedia.org/wikipedia/commons/1/11/Sankt_Matthaeus_Kirke_Copenhagen_altarpiece_detail1.jpg"
+                            }
+                        ]
+                    },
+                    auferstehung: {
+                        buttonText: "Auferstehung",
+                        shortText: "<strong class='text-blue-300 block mb-2 text-2xl font-black tracking-tight'>Hoffnung auf das Jenseits</strong>Die Auferweckung Jesu ist das absolute Fundament des neutestamentlichen Glaubens. Sie bedeutet die ultimative Überwindung des Todes und verspricht ein ewiges Leben bei Gott. Nachdem Jesus am Kreuz gestorben war, waren seine Anhänger in tiefer Trauer und Hoffnungslosigkeit - Es fühlte sich nach einer Niederlage an. Sie erlangten Ihre Hoffnung wieder, als Jesus ihnen erschien und sie erkannten, dass er den Tod und die Sünde besiegt hat",
+                        options: [
+                            {
+                                title: "Der neue Leib (1. Kor 15)",
+                                text: "Für Paulus ist die Auferstehung der Toten kein bloßes Zurückkehren ins irdische Leben, sondern eine radikale Verwandlung. Gesät wird ein irdischer, verweslicher Leib – auferweckt aber ein „geistlicher“, unvergänglicher Leib. Eine völlig neue Existenz, frei von Vergänglichkeit.",
+                                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAZY9rGwJ5A5E3ZhJXjVIPGvDQ5vOlLWvmKgkmUuqVSw&s=10"
+                            },
+                            {
+                                title: "Die Emmausjünger (Lk 24, 13-35)",
+                                text: "Zwei trauernde Jünger begegnen dem auferstandenen Jesus auf ihrem Weg nach Emmaus, erkennen ihn aber zunächst nicht. Erst als er am Abend das Brot mit ihnen bricht, „gehen ihnen die Augen auf“. Diese Geschicht macht deutlich, dass Christus genau dort gegenwärtig wird, wo Menschen Gemeinschaft pflegen.",
+                                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Fritz_von_Uhde_-_Der_Gang_nach_Emmaus_%281891%29.jpg/250px-Fritz_von_Uhde_-_Der_Gang_nach_Emmaus_%281891%29.jpg"
+                            }
+                        ]
+                    }
+                };
+
+                let currentNtMode = 'forderungen';
+
+                // Toggelt den Modus zwischen den zwei Versionen
+                function toggleNtVersion() {
+                    currentNtMode = currentNtMode === 'forderungen' ? 'auferstehung' : 'forderungen';
+                    renderNtView();
+                }
+
+                // Rendert UI (Button, Header-Text rechts, Dropdown)
+                function renderNtView() {
+                    const modeData = ntData[currentNtMode];
+                    
+                    // Button aktualisieren
+                    const btn = document.getElementById('nt-toggle-btn');
+                    btn.innerHTML = `<i class="fa-solid fa-arrows-rotate mr-2 text-blue-300"></i> ` + modeData.buttonText;
+                    
+                    // Header-Text im *rechten* Container aktualisieren
+                    document.getElementById('nt-header-text').innerHTML = modeData.shortText;
+                    
+                    // Dropdown Options neu befüllen
+                    const dropdown = document.getElementById('nt-dropdown');
+                    dropdown.innerHTML = '';
+                    modeData.options.forEach((opt, index) => {
+                        const optionEl = document.createElement('option');
+                        optionEl.value = index;
+                        optionEl.innerText = opt.title;
+                        dropdown.appendChild(optionEl);
+                    });
+                    
+                    // Bibelstellen-Inhalt passend zur ersten Dropdown Auswahl laden
+                    updateNtContent();
+                }
+
+                // Lädt Bild und Text für die spezifische Bibelstelle (Dropdown-Auswahl)
+                function updateNtContent() {
+                    const dropdown = document.getElementById('nt-dropdown');
+                    const selectedIndex = dropdown.value;
+                    const selectedData = ntData[currentNtMode].options[selectedIndex];
+                    
+                    // Sanfte Ausblendung für geschmeidigen Übergang
+                    const contentContainer = document.getElementById('nt-content-container');
+                    contentContainer.classList.remove('opacity-100');
+                    contentContainer.classList.add('opacity-0');
+                    
+                    // Inhalt wechseln und nach kurzer Zeit wieder einblenden
+                    setTimeout(() => {
+                        document.getElementById('nt-passage-title').innerText = selectedData.title;
+                        document.getElementById('nt-passage-text').innerText = selectedData.text;
+                        document.getElementById('nt-image').src = selectedData.image;
+                        
+                        contentContainer.classList.remove('opacity-0');
+                        contentContainer.classList.add('opacity-100');
+                    }, 150);
+                }
+
+                // Initialer Aufruf zur ersten Befüllung beim Laden der Seite
+                renderNtView();
+            </script>
+        </div>
+                
+        <div id="page-vergleich" class="page-content">
+            <div class="glass-panel-deep p-10 rounded-[2.5rem]">
+                <div class="flex items-center gap-4 mb-8">
+                    <i class="fa-solid fa-dharmachakra text-3xl text-emerald-400"></i>
+                    <h2 class="text-3xl font-black text-white">Vorstellungen im <span class="text-emerald-400">Vergleich</span></h2>
+                </div>
+                <div class="overflow-x-auto">
+                                    <table>
+                                            <thead>
+                                                    <tr>
+                                                            <th class="w-1/5">Religion</th>
+                                                            <th class="w-2/5">Kernvorstellung</th>
+                                                            <th class="w-2/5">Was passiert danach?</th>
+                                                    </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <!-- Christentum -->
+                                                    <tr>
+                                                            <td class="align-top">Christentum</td>
+                                                            <td class="align-top text-slate-300">
+                                                                    <div class="font-semibold text-blue-300 mb-2">Göttliches Gericht</div>
+                                                                    <p class="text-sm text-slate-400 leading-relaxed">
+                                                                            Nach dem Tod wird jeder Mensch von Gott gerichtet. Das irdische Handeln, der Glaube und insbesondere die gelebte Nächstenliebe sind hierbei maßgebend für das Schicksal der Seele.
+                                                                    </p>
+                                                            </td>
+                                                            <td class="align-top text-slate-300">
+                                                                    <div class="font-semibold text-blue-300 mb-2">Ewigkeit bei oder ohne Gott</div>
+                                                                    <ul class="list-disc list-inside space-y-2 text-sm text-slate-400">
+                                                                            <li>
+                                                                                    <strong class="text-slate-200">Himmel:</strong> Ewige, freudige Gemeinschaft mit Gott an einem Ort ohne Leid, Schmerz oder Tod.
+                                                                            </li>
+                                                                            <li>
+                                                                                    <strong class="text-slate-200">Hölle:</strong> Der Zustand der bewussten, endgültigen und schmerzhaften Trennung von Gott.
+                                                                            </li>
+                                                                    </ul>
+                                                            </td>
+                                                    </tr>
+                                                    
+                                                    <!-- Buddhismus -->
+                                                    <tr>
+                                                            <td class="align-top">Buddhismus</td>
+                                                            <td class="align-top text-slate-300">
+                                                                    <div class="font-semibold text-emerald-400 mb-2">Das Gesetz des Karma</div>
+                                                                    <p class="text-sm text-slate-400 leading-relaxed mb-3">
+                                                                            Jede Tat hinterlässt eine Wirkung. Die Qualität dieses aufgehäuften Karmas entscheidet über die Form und Qualität der nächsten Wiedergeburt im endlosen Kreislauf des Leidens (Samsara):
+                                                                    </p>
+                                                                    <ul class="list-disc list-inside space-y-1 text-sm text-slate-400">
+                                                                            <li><strong class="text-slate-200">Gutes Verhalten (Karma ++):</strong> Heilsame Taten führen zu einer positiveren Reinkarnation.</li>
+                                                                            <li><strong class="text-slate-200">Schlechtes Verhalten (Karma --):</strong> Unheilsame Taten (getrieben von Gier, Hass oder Verblendung) führen zu leidvolleren Wiedergeburten, bspw. als Tier.</li>
+                                                                    </ul>
+                                                            </td>
+                                                            <td class="align-top text-slate-300">
+                                                                    <div class="font-semibold text-emerald-400 mb-2">Erleuchtung & Parinirvana</div>
+                                                                    <ul class="list-disc list-inside space-y-3 text-sm text-slate-400">
+                                                                            <li>
+                                                                                    <strong class="text-slate-200">Nirvana (im Leben):</strong> Das eigentliche Ziel ist das Erreichen der Erleuchtung noch zu Lebzeiten. Man lebt ohne Gier und Hass, überwindet die Illusion eines getrennten Egos und nimmt sich nur noch das, was man als Individuum wirklich benötigt.
+                                                                            </li>
+                                                                            <li>
+                                                                                    <strong class="text-slate-200">Parinirvana (nach dem Tod):</strong> Stirbt ein bereits Erleuchteter, tritt sein Geist in das Parinirvana über. Dies bedeutet das vollständige Erlöschen des Leids und die  Erlösung aus dem Kreislauf der Wiedergeburten.
+                                                                            </li>
+                                                                    </ul>
+                                                            </td>
+                                                    </tr>
+                                            </tbody>
+                                    </table>
                 </div>
             </div>
-            
-            <button class="w-full mt-2 aero-button-classic font-bold py-3.5 px-4 rounded-xl text-sm uppercase tracking-wider flex items-center justify-center gap-2">
-                <i class="fa-solid fa-bolt"></i> Aktion Ausführen
-            </button>
-        </aside>
+        </div>
 
-        <section class="md:col-span-3 glass-panel-deep p-8 rounded-3xl">
+        <div id="page-musik" class="page-content">
+    <h2 class="text-3xl font-black text-white mb-10 text-center">Tod und Jenseits <span class="text-orange-400">in der Musik</span></h2>
+    
+    <!-- Grid für 2 gleichgroße Spalten (Container) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- CONTAINER 1: Back To The Earth -->
+        <div class="glass-panel-deep p-8 rounded-[2.5rem] flex flex-col sm:flex-row gap-8 items-start">
             
-            <div class="mb-10 pb-8 border-b border-white/10">
-                <h2 class="text-4xl font-extrabold text-white leading-tight drop-shadow-md">
-                    System-<span class="text-ctp-mauve">Übersicht</span>
-                </h2>
-                <p class="text-lg text-ctp-subtext0 mt-3 max-w-2xl leading-relaxed">
-                    Dies ist dein neues, bereinigtes Glas-Interface. Der Blur ist stärker, die Transparenz höher und die Struktur kommt ohne verschachtelte Kästen aus.
+            <!-- Linke Seite: Bild, Icons & Titel -->
+            <div class="flex flex-col flex-shrink-0 w-48">
+                <!-- Bild Container (relativ für absolute Positionierung der Icons) -->
+                <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl group">
+                    <img src="assets/Back To The Earth.png" alt="Cover Back To The Earth" class="w-full h-full object-cover">
+                    
+                    <!-- Dunkler Verlauf von unten, damit weiße Icons besser lesbar sind -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90"></div>
+                    
+                    <!-- Lyrics Icon (Unten Links) -->
+                    <a href="https://genius.com/Starset-back-to-the-earth-lyrics" target="_blank" title="Songtext" class="absolute bottom-3 left-3 text-white hover:text-blue-400 transition-transform transform hover:scale-110 z-10">
+                        <i class="fa-solid fa-file-lines text-xl drop-shadow-md"></i>
+                    </a>
+                    
+                    <!-- Play/Pause Icon (Unten Rechts) -->
+                    <button onclick="toggleAudio('audio-earth', this)" title="Abspielen / Pausieren" class="absolute bottom-3 right-3 text-white hover:text-orange-400 transition-transform transform hover:scale-110 z-10">
+                        <i class="fa-solid fa-circle-play text-3xl drop-shadow-lg bg-black/20 rounded-full"></i>
+                    </button>
+                </div>
+                
+                <!-- Titel (Linksbündig mit dem Bild) -->
+                <h3 class="text-lg font-bold text-white leading-tight">Back To The Earth - Starset</h3>
+            </div>
+            
+            <!-- Rechte Seite: Erklärtext -->
+            <div class="flex-grow pt-2">
+                <h4 class="text-xs uppercase tracking-widest text-orange-400 font-bold mb-3">Erklärung</h4>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    Mit Raumfahrt-Metaphern beschreibt der Song den Tod als Übergang, 
+                    bei dem die Seele allen irdischen Ballast abwirft. 
+                    Der Vers "Is this death or rebirth?"
+                    verknüpft hier die Rückkehr zur Erde mit der inneren Hoffnung auf 
+                    Reinkarnation und einen kosmischen Neuanfang.
                 </p>
             </div>
+        </div>
 
-            <div class="space-y-1">
-                <h3 class="text-xs font-bold uppercase tracking-widest text-ctp-green mb-5 flex items-center gap-2">
-                    <i class="fa-solid fa-circle-nodes"></i> System-Status:
-                </h3>
+        <!-- CONTAINER 2: Spirit In The Sky -->
+        <div class="glass-panel-deep p-8 rounded-[2.5rem] flex flex-col sm:flex-row gap-8 items-start">
+            
+            <!-- Linke Seite: Bild, Icons & Titel -->
+            <div class="flex flex-col flex-shrink-0 w-48">
+                <!-- Bild Container -->
+                <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl group">
+                    <!-- HINWEIS: Hier evtl. den Bildnamen noch anpassen, falls es ein anderes Bild sein soll -->
+                    <img src="assets/Spirit In The Sky (Remastered 2023).png" alt="Cover Spirit In The Sky" class="w-full h-full object-cover">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90"></div>
+                    
+                    <!-- Lyrics Icon (Unten Links) -->
+                    <a href="https://genius.com/Norman-greenbaum-spirit-in-the-sky-lyrics" target="_blank" title="Songtext" class="absolute bottom-3 left-3 text-white hover:text-blue-400 transition-transform transform hover:scale-110 z-10">
+                        <i class="fa-solid fa-file-lines text-xl drop-shadow-md"></i>
+                    </a>
+                    
+                    <!-- Play/Pause Icon (Unten Rechts) -->
+                    <button onclick="toggleAudio('audio-spirit', this)" title="Abspielen / Pausieren" class="absolute bottom-3 right-3 text-white hover:text-orange-400 transition-transform transform hover:scale-110 z-10">
+                        <i class="fa-solid fa-circle-play text-3xl drop-shadow-lg bg-black/20 rounded-full"></i>
+                    </button>
+                </div>
                 
-                <div class="flex items-center gap-5 p-5 hover:bg-white/5 rounded-2xl transition group">
-                    <div class="w-14 h-14 rounded-2xl bg-ctp-green/10 border border-ctp-green/20 flex items-center justify-center shadow-inner group-hover:scale-105 transition text-xl text-ctp-green">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="text-lg font-bold text-white group-hover:text-ctp-green transition">Deep Glass Effekt</h4>
-                        <p class="text-sm text-ctp-subtext0 mt-0.5">Maximaler Unschärfe-Effekt (25px Blur) für tiefe Oberflächen.</p>
-                    </div>
-                    <span class="text-xs text-ctp-green font-mono py-1 px-3 bg-ctp-green/10 rounded-full border border-ctp-green/20 flex items-center gap-1.5">
-                        <i class="fa-solid fa-circle text-[6px]"></i> AKTIV
-                    </span>
-                </div>
-
-                <div class="border-t border-white/5 my-1"></div>
-
-                <div class="flex items-center gap-5 p-5 hover:bg-white/5 rounded-2xl transition group">
-                    <div class="w-14 h-14 rounded-2xl bg-ctp-lavender/10 border border-ctp-lavender/20 flex items-center justify-center shadow-inner group-hover:scale-105 transition text-xl text-ctp-lavender">
-                        <i class="fa-solid fa-droplet"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="text-lg font-bold text-white group-hover:text-ctp-lavender transition">Bereinigte Struktur</h4>
-                        <p class="text-sm text-ctp-subtext0 mt-0.5">Keine verschachtelten abgerundeten Kästen mehr. Alles schwebt auf einer Ebene.</p>
-                    </div>
-                    <span class="text-xs text-ctp-subtext0 font-mono py-1 px-3 bg-white/5 rounded-full border border-white/10 flex items-center gap-1.5">
-                        <i class="fa-solid fa-circle text-[6px] opacity-40"></i> STANDBY
-                    </span>
-                </div>
-
-                <div class="border-t border-white/5 my-1"></div>
-
-                <div class="flex items-center gap-5 p-5 hover:bg-white/5 rounded-2xl transition group">
-                    <div class="w-14 h-14 rounded-2xl bg-ctp-blue/10 border border-ctp-blue/20 flex items-center justify-center shadow-inner group-hover:scale-105 transition text-xl text-ctp-blue">
-                        <i class="fa-solid fa-rocket"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="text-lg font-bold text-white group-hover:text-ctp-blue transition">Aero Button Vibe</h4>
-                        <p class="text-sm text-ctp-subtext0 mt-0.5">Der klassische, plastische Button-Stil wurde beibehalten und optimiert.</p>
-                    </div>
-                    <span class="text-xs text-ctp-blue font-mono py-1 px-3 bg-ctp-blue/10 rounded-full border border-ctp-blue/20 flex items-center gap-1.5">
-                        <i class="fa-solid fa-circle text-[6px]"></i> BEREIT
-                    </span>
-                </div>
+                <!-- Titel -->
+                <h3 class="text-lg font-bold text-white leading-tight">Spirit In The Sky - Norman Greenbaum</h3>
             </div>
-        </section>
+            
+            <!-- Rechte Seite: Erklärtext -->
+            <div class="flex-grow pt-2">
+                <h4 class="text-xs uppercase tracking-widest text-orange-400 font-bold mb-3">Erklärung</h4>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    Mit freudigen Tönen beschreibt der Song den Tod als freudigen Aufstieg, 
+                    bei dem die Seele ins Paradies einkehrt, dem "besten Ort", den es gibt. Die Zeile "Gotta have a friend 
+                    in Jesus" verknüpft hier den christlichen Glauben an göttliche Fürsprache mit der 
+                    absoluten Gewissheit auf ein ewiges Leben beim "Geist im Himmel".
+                    Um das ewige Leben zu erreichen, braucht es die Beziehung zu Jesus.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Versteckte Audio-Elemente -->
+    <audio id="audio-earth" src="assets/Back To The Earth [8SIsK96ekbw].opus"></audio>
+    <audio id="audio-spirit" src="assets/Spirit In The Sky (Remastered 2023) [r9s5sFBv0Sc].opus"></audio>
+</div>
+
+        <div id="page-quellen" class="page-content">
+            <div class="glass-panel-deep p-10 rounded-[2.5rem] flex flex-col gap-10">
+                
+                <!-- Header -->
+                <div class="flex items-center gap-4">
+                    <i class="fa-solid fa-list-ul text-3xl text-slate-400"></i>
+                    <h2 class="text-3xl font-black text-white">Quellenverzeichnis</h2>
+                </div>
+
+                <!-- QUELLEN GRID -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    
+                    <!-- Linke Spalte: Inhaltliche Quellen (Text) -->
+                    <div class="flex flex-col gap-6">
+                        
+                        <!-- Bibelstellen -->
+                        <div>
+                            <h3 class="text-xs uppercase tracking-widest text-blue-400 font-bold mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-book-bible"></i> Bibeltexte (Bibelserver.de)
+                            </h3>
+                            <span class="text-xs text-slate-500 block mb-2">Verwendete Passagen in der Einheitsübersetzung 2016:</span>
+                            <ul class="space-y-2 text-sm">
+                                <li><a href="https://www.bibelserver.com/EU/Johannes8" target="_blank" class="text-slate-300 hover:text-blue-400 underline transition-colors">Johannes 8,1-11 (Jesus und die Ehebrecherin)</a></li>
+                                <li><a href="https://www.bibelserver.com/EU/Matth%C3%A4us5" target="_blank" class="text-slate-300 hover:text-blue-400 underline transition-colors">Matthäus 5,17-48 (Die Antithesen der Bergpredigt)</a></li>
+                                <li><a href="https://www.bibelserver.com/EU/1.Korinther15" target="_blank" class="text-slate-300 hover:text-blue-400 underline transition-colors">1. Korinther 15 (Der neue Auferstehungsleib)</a></li>
+                                <li><a href="https://www.bibelserver.com/EU/Lukas24" target="_blank" class="text-slate-300 hover:text-blue-400 underline transition-colors">Lukas 24,13-35 (Der Weg nach Emmaus)</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Christliche Theologie & Jenseitsvorstellungen -->
+                        <div>
+                            <h3 class="text-xs uppercase tracking-widest text-amber-400 font-bold mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-cross"></i> Christliche Theologie & Exegese
+                            </h3>
+                            <ul class="space-y-2 text-sm text-slate-300">
+                                <li><a href="https://de.wikipedia.org/wiki/Bergpredigt" target="_blank" class="hover:text-amber-400 underline transition-colors break-all">Wikipedia: Die Bergpredigt (Theologischer Kontext)</a></li>
+                                <li><a href="https://www.ekd.de/Bergpredigt-Basiswissen-Glauben-11519.htm" target="_blank" class="hover:text-amber-400 underline transition-colors break-all">Evangelische Kirche in Deutschland (EKD): Basiswissen Bergpredigt</a></li>
+                                <li><a href="https://de.wikipedia.org/wiki/J%C3%BCngstes_Gericht" target="_blank" class="hover:text-amber-400 underline transition-colors break-all">Wikipedia: Das Jüngste Gericht in der christlichen Kunst & Theologie</a></li>
+                                <li><a href="https://de.wikipedia.org/wiki/Leben_nach_dem_Tod#Christentum" target="_blank" class="hover:text-amber-400 underline transition-colors break-all">Wikipedia: Vorstellungen vom Leben nach dem Tod im Christentum</a></li>
+                                <li><a href="https://www.biblisch-lutherisch.de/startseite/was-ist-nach-dem-tod/" target="_blank" class="hover:text-amber-400 underline transition-colors break-all">Biblisch-Lutherisch: Theologische Abhandlung „Was kommt nach dem Tod?“</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Östliche Religionen & Buddhismus -->
+                        <div>
+                            <h3 class="text-xs uppercase tracking-widest text-emerald-400 font-bold mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-dharmachakra"></i> Östliche Jenseitsmodelle
+                            </h3>
+                            <ul class="space-y-2 text-sm text-slate-300">
+                                <li><a href="https://www.buddha-blog.online/blog/c/0/i/81762573/wiedergeburt-kreislauf-des-lebens-im-buddhismus" target="_blank" class="hover:text-emerald-400 underline transition-colors break-all">Buddha-Blog: Der Kreislauf des Lebens & Reinkarnation</a></li>
+                                <li><a href="https://de.wikipedia.org/wiki/Buddhismus" target="_blank" class="hover:text-emerald-400 underline transition-colors break-all">Wikipedia: Allgemeine Einführung in die buddhistische Lehre</a></li>
+                                <li><a href="https://en.wikipedia.org/wiki/Parinirvana" target="_blank" class="hover:text-emerald-400 underline transition-colors break-all">Wikipedia (EN): Parinirvana (Das endgültige Erlöschen)</a></li>
+                                <li><a href="https://ohne-kloos-nix-los.de/buddhismus-reinkarnation/" target="_blank" class="hover:text-emerald-400 underline transition-colors break-all">Religionspädagogischer Beitrag: Reinkarnation und Karma im Vergleich</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <!-- Rechte Spalte: Bildquellen (Als reine Links) -->
+                    <div class="flex flex-col gap-6">
+                        <div>
+                            <h3 class="text-xs uppercase tracking-widest text-orange-400 font-bold mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-image"></i> Bildnachweise (Grafiken & Motive)
+                            </h3>
+                            <ul class="space-y-4 text-sm text-slate-300">
+                                <li>
+                                    <strong class="text-slate-400 block text-xs">Dashboard Hintergrund (Wolkenhimmel):</strong>
+                                    <span class="text-xs text-slate-500 block">Quelle: The Weather Channel / Getty Images</span>
+                                    <a href="https://s.w-x.co/de-GettyImages-Wolken.jpg" target="_blank" class="hover:text-orange-400 underline transition-colors break-all text-xs text-slate-400 block mt-0.5">https://s.w-x.co/de-GettyImages-Wolken.jpg</a>
+                                </li>
+                                <li>
+                                    <strong class="text-slate-400 block text-xs">Motiv Johannes 8 (Jesus & die Ehebrecherin):</strong>
+                                    <span class="text-xs text-slate-500 block">Quelle: Gotteswort Kirchenportal</span>
+                                    <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTVM1WEgtK66Rx6lXZgJARa5HYp2JHIxsPcIa5GmmcQLr9wh7snv0xEwz5&s=10" target="_blank" class="hover:text-orange-400 underline transition-colors break-all text-xs text-slate-400 block mt-0.5">https://encrypted-tbn0.gstatic.com/...</a>
+                                </li>
+                                <li>
+                                    <strong class="text-slate-400 block text-xs">Motiv Matthäus 5 (Altar-Detail der Antithesen):</strong>
+                                    <span class="text-xs text-slate-500 block">Quelle: Wikimedia Commons (Sankt Matthæus Kirke, Kopenhagen)</span>
+                                    <a href="https://upload.wikimedia.org/wikipedia/commons/1/11/Sankt_Matthaeus_Kirke_Copenhagen_altarpiece_detail1.jpg" target="_blank" class="hover:text-orange-400 underline transition-colors break-all text-xs text-slate-400 block mt-0.5">https://upload.wikimedia.org/wikipedia/commons/...</a>
+                                </li>
+                                <li>
+                                    <strong class="text-slate-400 block text-xs">Infografik 1. Korinther 15 (Der neue Leib):</strong>
+                                    <span class="text-xs text-slate-500 block">Quelle: Theologisches Grafikarchiv</span>
+                                    <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAZY9rGwJ5A5E3ZhJXjVIPGvDQ5vOlLWvmKgkmUuqVSw&s=10" target="_blank" class="hover:text-orange-400 underline transition-colors break-all text-xs text-slate-400 block mt-0.5">https://encrypted-tbn0.gstatic.com/...</a>
+                                </li>
+                                <li>
+                                    <strong class="text-slate-400 block text-xs">Motiv Lukas 24 (Der Gang nach Emmaus):</strong>
+                                    <span class="text-xs text-slate-500 block">Quelle: Wikimedia Commons (Gemälde von Fritz von Uhde, 1891)</span>
+                                    <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Fritz_von_Uhde_-_Der_Gang_nach_Emmaus_%281891%29.jpg/250px-Fritz_von_Uhde_-_Der_Gang_nach_Emmaus_%281891%29.jpg" target="_blank" class="hover:text-orange-400 underline transition-colors break-all text-xs text-slate-400 block mt-0.5">https://upload.wikimedia.org/wikipedia/commons/...</a>
+                                </li>
+                                <li>
+                                    <strong class="text-slate-400 block text-xs">Album Cover – Starset (Transmissions / Horizons):</strong>
+                                    <span class="text-xs text-slate-500 block">Quelle: jpc Musikvertrieb</span>
+                                    <a href="https://media1.jpc.de/image/w1155/front/0/0030206622928.jpg" target="_blank" class="hover:text-orange-400 underline transition-colors break-all text-xs text-slate-400 block mt-0.5">https://media1.jpc.de/image/...</a>
+                                </li>
+                                <li>
+                                    <strong class="text-slate-400 block text-xs">Album Cover – Norman Greenbaum (Spirit in the Sky):</strong>
+                                    <span class="text-xs text-slate-500 block">Quelle: Spotify Media CDN</span>
+                                    <a href="https://i.scdn.co/image/ab67616d0000b273bbb9cbf8878c0f06d329b58d" target="_blank" class="hover:text-orange-400 underline transition-colors break-all text-xs text-slate-400 block mt-0.5">https://i.scdn.co/image/...</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
     </main>
 
-    <footer class="max-w-7xl mx-auto mt-6 text-center text-xs text-ctp-surface1 p-8 border-t border-white/5">
-        <p>Deep Aero Glass Interface // Catppuccin Mocha Base</p>
-        <p class="mt-1">"Vibe Coding unter Hochdruck."</p>
-    </footer>
-
-    <script>
-        function switchTab(activeTab) {
-            const dashboard = document.getElementById('tab-dashboard');
-            const daten = document.getElementById('tab-daten');
-            const system = document.getElementById('tab-system');
-
-            [dashboard, daten, system].forEach(pill => {
-                pill.classList.remove('nav-pill-active-blue', 'nav-pill-active-lavender', 'nav-pill-active-green');
-            });
-
-            if (activeTab === 'dashboard') {
-                dashboard.classList.add('nav-pill-active-blue');
-            } else if (activeTab === 'daten') {
-                daten.classList.add('nav-pill-active-lavender');
-            } else if (activeTab === 'system') {
-                system.classList.add('nav-pill-active-green');
-            }
-        }
-    </script>
 </body>
 </html>
