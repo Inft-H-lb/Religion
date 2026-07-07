@@ -1,0 +1,115 @@
+/* 1. GRUNDSTYLING & HINTERGRUND */
+body {
+    background-color: #11111b;
+    background-image: 
+        radial-gradient(at 15% 15%, rgba(180, 190, 254, 0.1) 0px, transparent 50%),
+        radial-gradient(at 85% 15%, rgba(137, 180, 250, 0.1) 0px, transparent 50%),
+        radial-gradient(at 50% 85%, rgba(116, 199, 236, 0.08) 0px, transparent 50%),
+        linear-gradient(180deg, #11111b 0%, #161622 100%);
+    background-attachment: fixed;
+    color: #cdd6f4;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* 2. DEEP GLASS EFFEKT */
+.glass-panel-deep {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    border-left: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* 3. NAVIGATION & BUTTONS */
+.nav-pill {
+    font-family: ui-monospace, monospace;
+    font-weight: 600;
+    color: #a6adc8;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+}
+
+.nav-pill:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.active-pill {
+    background: rgba(137, 180, 250, 0.12);
+    border-color: rgba(137, 180, 250, 0.3);
+    color: #89b4fa;
+}
+
+/* 4. AERO BUTTON */
+.aero-btn {
+    position: relative;
+    background: linear-gradient(180deg, rgba(137, 180, 250, 0.25) 0%, rgba(116, 199, 236, 0.15) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(137, 180, 250, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.2s ease;
+}
+
+.aero-btn:hover {
+    background: linear-gradient(180deg, rgba(137, 180, 250, 0.35) 0%, rgba(116, 199, 236, 0.25) 100%);
+    box-shadow: 0 0 15px rgba(137, 180, 250, 0.2);
+}
+
+/* 5. TAB-LOGIK / DISPLAY ANZEIGE */
+.page-content {
+    display: none;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.page-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 6. TABELLEN-DESIGN FÜR DEN RELIGIONSVERGLEICH */
+table { 
+    width: 100%; 
+    border-collapse: separate !important; 
+    border-spacing: 0 12px !important; 
+}
+
+tbody tr td {
+    border-top: 12px solid transparent;
+}
+
+th { 
+    text-align: left; 
+    padding: 12px; 
+    color: #89b4fa; 
+    font-size: 0.75rem; 
+    text-transform: uppercase; 
+    letter-spacing: 0.1em; 
+}
+
+td { 
+    padding: 16px; 
+    background: rgba(255, 255, 255, 0.03); 
+    border-top: 1px solid rgba(255, 255, 255, 0.05); 
+}
+
+td:first-child { 
+    border-radius: 12px 0 0 12px; 
+    font-weight: bold; 
+    color: #ffffff; 
+}
+
+td:last-child { 
+    border-radius: 0 12px 12px 0; 
+}
+
+#youdied{
+    color: #F38BA8;
+}
